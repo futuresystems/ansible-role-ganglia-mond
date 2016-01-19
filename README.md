@@ -2,6 +2,8 @@
 
 This role deploys the Ganglia `mond` daemon.
 
+Tested with Ganglia 3.7.2
+
 # Platforms supported
 
 - Ubuntu 14.04
