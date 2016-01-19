@@ -5,6 +5,7 @@ This role deploys the Ganglia `mond` daemon.
 # Platforms supported
 
 - Ubuntu 14.04
+- EL7
 
 # Variables
 
