@@ -48,13 +48,53 @@ udp_send_channel {
 }
 {% endfor %}
 
+/*  Example of recv_channel that we create below
+udp_recv_channel {
+   bind = 192.168.2.1
+   port = 8649
+   acl {
+     default = "deny"
+     access {
+       ip = 192.168.1.0
+       mask = 24
+       action = "allow"
+     }
+   }
+}
+*/
+
 /* You can specify as many udp_recv_channels as you like as well. */
 {% for item in ganglia_udp_recv_channels %}
 udp_recv_channel {
   {% for key, value in item.iteritems() %}
-  {% if key != "acl" %}
-  {{ key }} = {{ value }}
-  {% endif %}
+   {% if key != "acl" %}
+    {{ key }} = {{ value }}
+   {% endif %}
+   {% if key == "acl" %}
+    acl {
+     {% for item in value %}
+      {% for key, value in item.iteritems() %}
+       {% if key != "access" %}
+        {{ key }} = {{ value }} 
+       {% endif %}
+       {% if key == "access" %}
+         access {
+          {% for item in value %}
+           {% for key, value in item.iteritems() %}
+            {{ key }} = {{ value }} 
+           {% endfor %}
+          {% endfor %}
+       {% endif %}
+      {% endfor %}
+     {% endfor %}
+     {% if key == "access" %}
+     }
+     {% endif %}
+   {% endif %}
+   {% if key == "acl" %}
+   }
+   }
+   {% endif %}
   {% endfor %}
 }
 {% endfor %}
@@ -64,7 +104,34 @@ udp_recv_channel {
 {% for item in ganglia_tcp_accept_channels %}
 tcp_accept_channel {
   {% for key, value in item.iteritems() %}
-  {{ key }} = {{ value }}
+   {% if key != "acl" %}
+    {{ key }} = {{ value }}
+   {% endif %}
+   {% if key == "acl" %}
+    acl {
+     {% for item in value %}
+      {% for key, value in item.iteritems() %}
+       {% if key != "access" %}
+        {{ key }} = {{ value }}
+       {% endif %}
+       {% if key == "access" %}
+         access {
+          {% for item in value %}
+           {% for key, value in item.iteritems() %}
+            {{ key }} = {{ value }}
+           {% endfor %}
+          {% endfor %}
+       {% endif %}
+      {% endfor %}
+     {% endfor %}
+     {% if key == "access" %}
+     }
+     {% endif %}
+   {% endif %}
+   {% if key == "acl" %}
+   }
+   }
+   {% endif %}
   {% endfor %}
 }
 {% endfor %}
