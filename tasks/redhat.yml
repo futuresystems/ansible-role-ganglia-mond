@@ -4,11 +4,8 @@
   yum:
     name: ganglia-gmond
     state: present
-  tags:
-    - ganglia_mond_install
-    - ganglia_mond
-    - install
-    - ganglia
+  notify:
+   - restart gmond
 
 
 - name: configure
@@ -16,20 +13,11 @@
     src: gmond.conf.el7.j2
     dest: "{{ ganglia_gmon_conf_path }}"
     backup: yes
-  tags:
-    - ganglia_mond_configure
-    - ganglia_mond
-    - configure
-    - ganglia
+  notify:
+   - restart gmond
 
-- name: restart gmond
+- name: start and enable gmond
   service:
     name: gmond
-    state: restarted
+    state: started
     enabled: yes
-  tags:
-    - ganglia_mond_service
-    - ganglia_mond
-    - ganglia_service
-    - ganglia
-    - service
