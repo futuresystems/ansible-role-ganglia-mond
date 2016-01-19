@@ -15,6 +15,7 @@
   template:
     src: gmond.conf.j2
     dest: "{{ ganglia_gmon_conf_path }}"
+    backup: yes
   tags:
     - ganglia_mond_configure
     - ganglia_mond
