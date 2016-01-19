@@ -27,10 +27,10 @@ globals {
  * tag that will wrap all hosts collected by this instance.
  */
 cluster {
-  name = {{ ganglia_cluster.name | default(ganglia_defaults_cluster_name) }}
-  owner = {{ ganglia_cluster.owner | default(ganglia_defaults_cluster_owner) }}
-  latlong = {{ ganglia_cluster.latlong | default(ganglia_defaults_cluster_latlong) }}
-  url = {{ ganglia_cluster.url | default(ganglia_defaults_cluster_url) }}
+  name = "{{ ganglia_cluster.name | default(ganglia_defaults_cluster_name) }}"
+  owner = "{{ ganglia_cluster.owner | default(ganglia_defaults_cluster_owner) }}"
+  latlong = "{{ ganglia_cluster.latlong | default(ganglia_defaults_cluster_latlong) }}"
+  url = "{{ ganglia_cluster.url | default(ganglia_defaults_cluster_url) }}"
 }
 
 /* The host section describes attributes of the host, like the location */
@@ -52,7 +52,9 @@ udp_send_channel {
 {% for item in ganglia_udp_recv_channels %}
 udp_recv_channel {
   {% for key, value in item.iteritems() %}
+  {% if key != "acl" %}
   {{ key }} = {{ value }}
+  {% endif %}
   {% endfor %}
 }
 {% endfor %}
