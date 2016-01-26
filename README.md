@@ -28,3 +28,12 @@ communicate with the first node in the `monitor` group.
       - host: "{{ hostvars[groups['monitor'][0]].ansible_eth0.ipv4.address }}"
         port: "{{ ganglia_defaults_gmon_port }}"
 ```
+
+
+# Contributing
+
+When submitting changes please:
+
+1. Add yourself to the CONTRIBUTORS.yml file
+1. Update CHANGES.md
+1. Submit a Pull Request to the `unstable` branch.
