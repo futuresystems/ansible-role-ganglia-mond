@@ -1,5 +1,13 @@
 
 
+# 2016-01-29
+
+- Tag v1.1.0
+
+## Changes
+
+- Support Enterprise Linux 7
+
 # 2016-01-26
 
 - Support Enterprise Linux 7 (Juhan Guldmyr)
